@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://use.typekit.net/mxu7nqv.css">
 </head>
 <body>
     <div class="card">
-  <div class="card-header">
+  <div class="card-header" >
     <h3>Community Garden Project</h3>
     <button class="expand-btn" aria-label="Expand card">+</button>
   </div>
@@ -19,5 +21,28 @@
     </div>
   </div>
 </div>
+<script>
+  let info = false;
+  
+  const expandBtn = document.querySelector('.expand-btn');
+  const details = document.querySelector('.card-content'); 
+
+  expandBtn.addEventListener('click', showInfo);
+
+  function showInfo() {
+    
+    if (info == false) {
+        details.style.display = 'flex';
+        expandBtn.textContent = '-';
+        info = true;
+    }
+    else if (info == true) {
+        details.style.display = 'none';
+        expandBtn.textContent = '+';
+        
+        info = false;
+    }
+};
+</script>
 </body>
 </html>
