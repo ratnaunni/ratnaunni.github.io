@@ -1,0 +1,55 @@
+body{
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+@media (max-width: 768px) {
+.nav-brand{
+    align-self: center;
+    font-size: 30 px;
+}
+  .nav-menu {
+    display: none;
+  }
+  .nav-menu.show {
+    position: absolute;
+    top: -20px;
+    right: 0px;
+    left: 0px;
+    background-color: grey;
+    padding: 10px ;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    display: block;
+  }
+  .nav-menu a {
+    margin: 20px;
+    cursor: pointer;
+    text-align: center;
+  }
+.nav-toggle{
+    position: absolute;
+    z-index: 5;
+    top: 25px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    border:none;
+    background: blue;
+    border-radius: 15px;
+    transition-property: .5s;
+}
+span{
+    margin: 3px;
+    height: 5px;
+    background-color: white;
+    border-radius: 10px;
+    display: block;
+}
+}
