@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .parent-grid{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        width:50px;
+        grid-template-areas: 
+        "overall-nav1 course-nav1 main1"
+        "overall-nav2 course-nav2 main2"
+        ;
+    }
+     .box{
+        border: 2px solid black; 
+        height: 100px;
+        width: 100px;}
+
+    #box1{
+        background-color: red;
+        grid-area: main1;
+    }
+    #box2{
+        background-color: blue;
+        grid-area: course-nav1;
+    }
+    #box3{
+        background-color: green;
+        grid-area: overall-nav1;
+    }
+    #box4{
+        background-color: yellow;
+        grid-area: main2;
+    }
+    #box5{
+        background-color: purple;
+        grid-area: course-nav2;
+    }
+    #box6{
+        background-color: orange;
+        grid-area: overall-nav2;
+    }
+    </style>
+</head>
+<body>
+    <div class='parent-grid'>
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+        <div class="box" id="box3"></div>
+        <div class="box" id="box4"></div>
+        <div class="box" id="box5"></div>  
+        <div class="box" id="box6"></div>  
+        </div>
+    </div>
+    <script>
+ var box1= document.querySelector('#box1').addEventListener('click', message);
+
+ function message(){
+    alert("This is a message");
+    };
+</script>
+</body>
+</html>
