@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <style>
-.photo-card { flex: 1 1 300px; height: 200px; }
-.featured { flex: 1 1 100%; height: 300px; }*/
-    .gallery-container { 
+.photo-card { flex: 1 1 300px;
+   height: 200px; 
+  }
+.featured { flex: 1 1 100%;
+   height: 300px; 
+  }
+.gallery-container { 
       /*display: flex; 
       flex-direction: column;*/
     display: grid; 
@@ -31,6 +35,9 @@
    grid-column: span 2; 
     height: 300px;
      }
+.gallery-nav button.active{
+    background-color: lightblue;
+}
 </style>
 </head>
 
@@ -39,34 +46,38 @@
     <div class="gallery-container">
   <header class="gallery-header">Photo Gallery</header>
   <nav class="gallery-nav">
-    <button>All</button>
-    <button>Nature</button>
-    <button>Architecture</button>
+    <button data-filter="all" class="active">All</button>
+    <button data-filter="nature" class="active">Nature</button>
+    <button data-filter="architecture" class="active">Architecture</button>
   </nav>
   <main class="gallery-grid">
-    <div class="photo-card" data-category="Nature">Photo 1</div>
-    <div class="photo-card" data-category="Architecture">Photo 2</div>
-    <div class="photo-card" data-category="Nature">Photo 3</div>
-    <div class="photo-card featured" data-category="Architecture">Featured Photo</div>
-    <div class="photo-card" data-category="Nature">Photo 5</div>
-    <div class="photo-card" data-category="Architecture">Photo 6</div>
+    <div class="photo-card" data-category="nature">Photo 1 Nature</div>
+    <div class="photo-card" data-category="architecture">Photo 2 Architecture</div>
+    <div class="photo-card" data-category="nature">Photo 3 Nature</div>
+    <div class="photo-card featured" data-category="architecture">Featured Photo Architecture</div>
+    <div class="photo-card" data-category="nature">Photo 5 Nature</div>
+    <div class="photo-card" data-category="architecture">Photo 6 Architecture</div>
   </main>
   <aside class="gallery-sidebar">Filter Options</aside>
 </div>
 <script>
-  javascript
 // Get all filter buttons and photo cards
 const filterButtons = document.querySelectorAll('.gallery-nav button');
 const photoCards = document.querySelectorAll('.photo-card');
 
 // Add click event to each button
 filterButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    const filterValue = event.target.textContent.toLowerCase();
+  button.addEventListener('click', () => {
+    const filterValue = button.dataset.filter.toLowerCase();
     filterPhotos(filterValue);
+  filterButtons.forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
   });
+
+  //filterPhotos(filterValue);
 });
-function filterPhotos(category) {
+//Filter
+ function filterPhotos(category) {
   photoCards.forEach(card => {
     if (category === 'all' || card.dataset.category === category) {
       card.style.display = 'block';
