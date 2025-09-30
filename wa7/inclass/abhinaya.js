@@ -22,6 +22,18 @@ function checkKey(key_code) {
         console.log("worked");
     }
 }
+//Navbar
+document.addEventListener('DOMContentLoaded', () =>{
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (navToggle && navMenu){
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+    }
+});
+//carousel 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.carousel-container')
     const grid = document.querySelector('.carousel-grid');

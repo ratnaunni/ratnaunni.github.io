@@ -307,6 +307,14 @@ a:visited {
     .parent-grid {
         grid-template-columns: 1fr;
     }
+    .links{
+          grid-column:1;
+        grid-row: auto;
+    }
+    .box{
+        grid-column:1;
+        grid-row: auto;
+    }
     #box1, #box2, #box3{
         grid-column:1;
         grid-row: auto;
@@ -332,7 +340,6 @@ a:visited {
         left: 0px;
         width: 100%;
         background-color: #8C5C5C;
-        width: 100%;
         height: auto;
         padding: 10px;
         display: flex;
@@ -343,6 +350,7 @@ a:visited {
     .nav-menu a {
         margin: 20px;
         text-align: center;
+        border: none;
     }
 
     .nav-toggle {
@@ -359,14 +367,14 @@ a:visited {
         border-radius: 15px;
         transition-property: .5s;
     }
-
-    span {
+span {
         margin: 3px 3px;
         height: 5px;
-        width: 50px;
+        width: 20px;
         align-content: center;
         background-color: black;
         display: block;
 
     }
+    
 }
