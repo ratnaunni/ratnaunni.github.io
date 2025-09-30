@@ -154,7 +154,7 @@ h1{
     }
 .layout{
     display: grid;
-    grid-template-columns: 3 fr 1 fr;
+    grid-template-columns: 3fr 1fr;
     gap: 16px;
     align-items: center;
 }
