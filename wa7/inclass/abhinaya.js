@@ -60,22 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 let themebtn = document.querySelector('#theme');
 themebtn.addEventListener('click', changeTheme);
+
 // Save user's theme choice
+
+//change theme when clicked
 function changeTheme() {
+    //get current theme, or defaults to light
     let ogTheme = localStorage.getItem('userTheme') || 'light';
 
+    //switch to other theme
     let newTheme = ogTheme === 'light' ? 'dark' : 'light';
 
+    //save in local storage
     localStorage.setItem('userTheme', newTheme);
     document.body.className = newTheme;
 
+    //updates button text
     themebtn.textContent = newTheme == 'light' ? "Switch to Dark Mode" : 'Switch to Light Mode';
 }
 // Load saved theme on page load
 window.addEventListener('load', function () {
+    //gets and appies saved theme
     const savedTheme = localStorage.getItem('userTheme') || 'light';
     document.body.className = savedTheme;
 
+    // changes button text to match theme
     themebtn.textContent = savedTheme === 'light' ? "Switch to Dark Mode" : 'Switch to Light Mode';
 
 });
