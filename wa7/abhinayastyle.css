@@ -58,6 +58,14 @@ h1 {
     font-size: 28px;
     text-align: center;
 }
+#greeting {
+    text-align: right;
+    color: #540e0e;
+}
+.greeting-text {
+    text-align: right;
+    color: #540e0e;
+}
 
 /* Flexbox Formatting */
 .button {

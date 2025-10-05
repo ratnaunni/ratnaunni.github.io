@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
     nextbtn.addEventListener('click', () => scrollByAmount(1));
     prevBtn.addEventListener('click', () => scrollByAmount(-1));
 })
-// Save user's theme choice
 let themebtn = document.querySelector('#theme');
 themebtn.addEventListener('click', changeTheme);
 
+// Save user's theme choice
 
 //change theme when clicked
 function changeTheme() {
@@ -87,8 +87,37 @@ window.addEventListener('load', function () {
     // changes button text to match theme
     themebtn.textContent = savedTheme === 'light' ? "Switch to Dark Mode" : 'Switch to Light Mode';
 
+})
+
+//Save name
+const greeting = document.querySelector('#greeting');
+const nameInput = document.querySelector('#username');
+const saveNameBtn = document.querySelector ('#saveName');
+const clearDataBtn = document.querySelector('#clearData');
+
+window.addEventListener('load', () => {
+    const savedName = localStorage.getItem('userName');
+    greeting.textContent = savedName ? `Welcome back, ${savedName}!` : `Welcome!`;
+}
+
+)
+
+saveNameBtn.addEventListener('click', () => {
+    const userName = nameInput.value.trim();
+    if (userName) {
+        localStorage.setItem('userName', userName);
+        alert(`Thanks, ${userName}!`);
+    } else {
+        alert ("Please enter your first name!");
+    }
+})
+
+//Clear both 
+clearDataBtn.addEventListener('click', () => {
+    localStorage.removeItem('userTheme');
+    localStorage.removeItem('userName');
+    document.body.className = 'light';
+    themebtn.textContent = "Switch to Dark Mode";
+    nameInput.value = '';
+    alert('Your data has been cleared successfully');
 });
-
-let username = document.querySelector('.username');
-
-localStorage.setItem('username', username);
