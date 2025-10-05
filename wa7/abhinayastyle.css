@@ -68,6 +68,9 @@ h1 {
 }
 body.dark #greeting {
   color: #f4f1deff;
+} 
+body.dark .greeting-text {
+  color: #f4f1deff;
 }
 /* Flexbox Formatting */
 .button {
