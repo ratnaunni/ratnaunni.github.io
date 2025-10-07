@@ -30,14 +30,7 @@ body {
     color: #f4f1deff;
     text-decoration: underline;
 }
-#greeting {
-    text-align: right;
-    color: #540e0e;
-}
-.greeting-text {
-    text-align: right;
-    color: #540e0e;
-}
+
 /* Text Formatting */
 p {
     font-size: 16px;
@@ -65,7 +58,20 @@ h1 {
     font-size: 28px;
     text-align: center;
 }
-
+#greeting {
+    text-align: right;
+    color: #540e0e;
+}
+.greeting-text {
+    text-align: right;
+    color: #540e0e;
+}
+body.dark #greeting {
+  color: #f4f1deff;
+} 
+body.dark .greeting-text {
+  color: #f4f1deff;
+}
 /* Flexbox Formatting */
 .button {
     background-color: #81b29aff;
@@ -225,6 +231,14 @@ h1 {
     border-radius: 15px;
     border:#540e0e solid 2px;
 }
+/*
+.car-btn.prev {
+    left: 10px;
+}
+
+.car-btn.next {
+    right: 10px;
+}*/
 
 .car-btn:hover {
     background-color: #540e0e;
@@ -298,8 +312,8 @@ a:visited {
     color: white;
 }
 
-@media (max-width: 768px) {
-    .carousel-grid {
+@media (max-width: 450px){
+.carousel-grid {
         grid-template-columns: 1fr;
     }
 
@@ -375,5 +389,83 @@ span {
         display: block;
 
     }
-    
+}
+
+@media (min-width: 450px) and (max-width: 800px){
+.carousel-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .parent-grid {
+        grid-template-columns: 1fr;
+    }
+    .links{
+          grid-column:1;
+        grid-row: auto;
+    }
+    .box{
+        grid-column:1;
+        grid-row: auto;
+    }
+    #box1, #box2, #box3{
+        grid-column:1;
+        grid-row: auto;
+    }
+    .box img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .nav-brand {
+        align-self: center;
+        font-size: 20px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-menu.show {
+        position: absolute;
+        top: 75px;
+        right: 0px;
+        left: 0px;
+        width: 100%;
+        background-color: #8C5C5C;
+        height: auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-menu a {
+        margin: 20px;
+        text-align: center;
+        border: none;
+    }
+
+    .nav-toggle {
+        position: absolute;
+        top: 25px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 30px;
+        padding: 6 px;
+        border: none;
+        border-radius: 15px;
+        transition-property: .5s;
+    }
+span {
+        margin: 3px 3px;
+        height: 5px;
+        width: 20px;
+        align-content: center;
+        background-color: black;
+        display: block;
+
+    }
 }
