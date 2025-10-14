@@ -55,57 +55,6 @@ function showSlides(n) {
 }
 
 
-// // // Next/previous controls
-// // function plusSlides(n) {
-// //   showSlides(slideIndex += n);
-// // }
-
-// // // Thumbnail image controls
-// // function currentSlide(n) {
-// //   showSlides(slideIndex = n);
-// // }
-
-// function showSlides(n) {
-//   let i;
-//   let slides = document.getElementsByClassName("mySlides");
-//   let dots = document.getElementsByClassName("dot");
-//   if (n > slides.length) {slideIndex = 1}
-//   if (n < 1) {slideIndex = slides.length}
-//   for (i = 0; i < slides.length; i++) {
-//     slides[i].style.display = "none";
-//   }
-//   for (i = 0; i < dots.length; i++) {
-//     dots[i].className = dots[i].className.replace(" active", "");
-//   }
-//   slides[slideIndex-1].style.display = "block";
-//   dots[slideIndex-1].className += " active";
-// }
-
-// //carousel 
-// document.addEventListener('DOMContentLoaded', () => {
-//     const container = document.querySelector('.carousel-container')
-//     const grid = document.querySelector('.carousel-grid');
-//     const firstSlide = grid.querySelector('.carousel-item');
-//     const nextbtn = document.querySelector('.car-btn.next');
-//     const prevBtn = document.querySelector('.car-btn.prev');
-
-//     if (!container || !grid || !firstSlide || !nextbtn || !prevBtn) {
-//         console.error('Carousel elements missing.');
-//         return;
-//     }
-//     function getScrollAmount() {
-//         const slideWidth = firstSlide.getBoundingClientRect().width;
-//         const styles = getComputedStyle(grid);
-//         const gap = parseFloat(styles.gap) || 0;
-//         return slideWidth + gap;
-//     }
-//     function scrollByAmount(dir = 1) {
-//         container.scrollBy({ left: dir * getScrollAmount(), behavior: 'smooth' });
-//     }
-
-//     nextbtn.addEventListener('click', () => scrollByAmount(1));
-//     prevBtn.addEventListener('click', () => scrollByAmount(-1));
-// })
 let themebtn = document.querySelector('#theme');
 themebtn.addEventListener('click', changeTheme);
 
