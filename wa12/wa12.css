@@ -57,14 +57,14 @@ html {
   #go {background-color: #2a9d8f;}
   #go:hover{background-color: #21867a;}
   #clear {background-color: #e76f51;}
-  #clear:hover{ background-color: #c27663;}
+  #clear:hover{ background-color: #771800;}
 
   .status{
     text-align: center;
     padding: 10px;
     font-size: 16px;
     color: #555;
-  }
+  } 
   .status{ text-align: center; padding: 10px; font-size: 16px; color: #555;}
   .status.warning {color:#a66a00;}
   .status.error {color: #b00020;}xs
