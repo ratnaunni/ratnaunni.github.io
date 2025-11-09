@@ -57,7 +57,7 @@ html {
   #go {background-color: #2a9d8f;}
   #go:hover{background-color: #21867a;}
   #clear {background-color: #e76f51;}
-  #clear:hover{ background-color: #c95b40;}
+  #clear:hover{ background-color: #ae5039;}
 
   .status{
     text-align: center;
@@ -143,6 +143,9 @@ img{
   padding: 8px 12px;
 }
 .pager button:disabled {opacity: .6; cursor: not-allowed;}
+.pager button:hover {
+    background-color: #613d00;
+}
 .pageinfo {font-size: 14px; color: #555;}
 .visually-hidden{
   position: absolute;
