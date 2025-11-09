@@ -144,7 +144,7 @@ img{
 }
 .pager button:disabled {opacity: .6; cursor: not-allowed;}
 .pager button:hover {
-    background-color: #613d00;
+    background-color: #ffaa16;
 }
 .pageinfo {font-size: 14px; color: #555;}
 .visually-hidden{
