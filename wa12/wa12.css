@@ -54,9 +54,9 @@ html {
   font-size: 16px;
   cursor: pointer;
   }
-  #go {background-color: #2a9d8f;}
-  #go:hover{background-color: #21867a;}
-  #clear {background-color: #e76f51;}
+  #go {background-color: #1e6f63;}
+  #go:hover{background-color: #15564c;}
+  #clear {background-color: #c2543f;}
   #clear:hover{ background-color: #771800;}
 
   .status{
