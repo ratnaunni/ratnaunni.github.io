@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="wa13.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="app">
+        <h1>OpenLibrary- Title Search</h1>
+        <section class="search">
+              <h2 class="visually-hidden">Search Form</h2> 
+            <label for="q" class="visually-hidden"> Search by Book Title</label>
+            <input id="q" placeholder="Search by title (ex. Dune)">
+            <button class = "button" id="go" aria-label="Search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </section>
+        <section class ="instructions">
+            <p>Type a book title and <strong>Search</strong> to load results from the OpenLibrary API.</p>
+            <p><strong>Favorite books</strong> locally or click the link to <strong>Buy/Borrow </strong></p>
+        </section>
+        <div class="status" id="status"></div>
+        <main class="grid" id="results"></main>
+        <section class="pager" id="pager" > 
+              <h2 class="visually-hidden">Pagination Controls</h2>
+            <button id="prev">Prev</button>
+            <span id="pageinfo" class="pageinfo"></span>
+            <button id="next">Next</button>
+        </section>
+        <section class="panel">
+            <h2>Favorites</h2>
+            <div id="favs" class="favlist"></div>
+            <button class="button" id="clear">Clear All</button>
+        </section>
+
+    </div>
+<script src="wa13.js"></script>
+</body>
+
+</html>
