@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OpenLibrary Title Search</title>
+  <style>
+    html { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: inherit; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+      background-color: #b2d4e6;
+    }
+
+    .app {
+      max-width: 960px;
+      margin: 40px auto;
+      background-color: #fdfdfd;
+      border-radius: 5px;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);
+    }
+
+    h1 {
+      font-size: 28px;
+      text-align: center;
+      padding: 10px;
+      color: #264653;
+      border-bottom: 1px solid #dbe1e6;
+    }
+
+    .search { padding: 20px 50px; text-align: center; }
+    input {
+      width: 70%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #fff;
+      box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+    }
+
+    #go { background-color: #2a9d8f; }
+    #go:hover { background-color: #21867a; }
+    #clear { background-color: #e76f51; }
+    #clear:hover { background-color: #c95b40; }
+
+    .status { text-align:center; padding: 10px; font-size: 16px; color:#555; }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+      padding: 20px 50px;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      justify-items: center;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px;
+      width: 150px;
+      text-align: center;
+      box-shadow: 0 2px 2px rgba(0,0,0,.15);
+    }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: #f6f6f6;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+
+    .title { font-weight: 600; margin: 4px 0; }
+    .author { font-size: 13px; color:#555; }
+
+    .fav {
+      background-color: #2a9d8f;
+      color: white;
+      border-radius: 4px;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    .fav:hover { background-color: #21867a; }
+
+    .more {
+      display: none; /* shown when more pages are available */
+      margin: 0 50px 10px;
+      background-color: #2a9d8f;
+    }
+    .more[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+    .panel {
+      padding: 20px 50px;
+      border-top: 1px solid #dbe1e6;
+      background: #fff;
+      border-radius: 0 0 5px 5px;
+    }
+
+    .favlist { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+    .favitem {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media screen and (max-width: 600px) {
+      .app { margin: 16px auto; }
+      input { width: 60%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>OpenLibrary — Title Search</h1>
+    <section class="search">
+      <input id="q" placeholder="Search by title (e.g., Dune)">
+      <button id="go">Search</button>
+    </section>
+    <div class="status" id="status"></div>
+    <main class="grid" id="results"></main>
+    <div class="search" style="padding-top:0">
+      <button id="more" class="more">Load more</button>
+    </div>
+    <section class="panel">
+      <h3>Favorites</h3>
+      <div id="favs" class="favlist"></div>
+      <button id="clear">Clear All</button>
+    </section>
+  </div>
+
+<script>
+(function(){
+  const ENDPOINT = 'https://openlibrary.org/search.json';
+  const imageSize = 'M';
+  const q = document.getElementById('q');
+  const go = document.getElementById('go');
+  const res = document.getElementById('results');
+  const status = document.getElementById('status');
+  const favsEl = document.getElementById('favs');
+  const clearBtn = document.getElementById('clear');
+  const moreBtn = document.getElementById('more');
+
+  const SLOW = 2500;
+  const TIMEOUT = 10000;
+  const STORE = 'olmini:fav';
+  const LIMIT = 50; // 50 results per request
+  const CHUNK = 12;  // render in small chunks to keep UI responsive
+  let controller = null;
+
+  // pagination trackers
+  let currentPage = 1;
+  let lastTitle = '';
+  let lastBatchCount = 0;
+
+  const loadFavs = () => JSON.parse(localStorage.getItem(STORE) || '[]');
+  const saveFavs = (list) => localStorage.setItem(STORE, JSON.stringify(list));
+  const coverUrl = (id) => id ? `https://covers.openlibrary.org/b/id/${id}-${imageSize}.jpg` : '';
+  const setStatus = (msg, color = '#555') => { status.textContent = msg; status.style.color = color; };
+
+  function addFavorite(item){
+    if (!item) return;
+    const list = loadFavs();
+    const id = item.key;
+    if (!id || list.some(f => f._id === id)) return;
+    list.unshift({_id:id, item});
+    saveFavs(list);
+    renderFavs();
+  }
+
+  function removeFavoriteByIndex(i){
+    const cur = loadFavs();
+    cur.splice(i,1);
+    saveFavs(cur);
+    renderFavs();
+  }
+
+  function renderFavs(){
+    const list = loadFavs();
+    favsEl.innerHTML = '';
+    if (!list.length){
+      const p = document.createElement('p');
+      p.textContent = 'No favorites yet.';
+      p.style.color = '#555';
+      favsEl.appendChild(p);
+      return;
+    }
+    list.forEach((f, i) => {
+      const div = document.createElement('div');
+      div.className = 'favitem';
+      const label = document.createElement('span');
+      label.textContent = f.item.title;
+      const del = document.createElement('button');
+      del.textContent = 'X';
+      del.addEventListener('click', () => removeFavoriteByIndex(i));
+      div.append(label, del);
+      favsEl.appendChild(div);
+    });
+  }
+
+  function cardFor(doc){
+    const c = document.createElement('div'); c.className='card';
+    const img = document.createElement('div'); img.className='cover';
+    const src = coverUrl(doc.cover_i);
+    if (src){ const im=document.createElement('img'); im.src=src; img.appendChild(im);} else img.textContent='No cover';
+    const t=document.createElement('div'); t.className='title'; t.textContent=doc.title;
+    const a=document.createElement('div'); a.className='author'; a.textContent=(doc.author_name||[]).join(', ');
+    const fav=document.createElement('button'); fav.className='fav'; fav.textContent='☆ Favorite';
+    fav.addEventListener('click', ()=>addFavorite(doc));
+    c.append(img,t,a,fav);
+    return c;
+  }
+
+  function renderResults(docs, append=false){
+    if (!append) res.innerHTML='';
+    const fragment = document.createDocumentFragment();
+    let i = 0;
+    function pump(){
+      let count = 0;
+      while (i < docs.length && count < CHUNK){
+        fragment.appendChild(cardFor(docs[i++]));
+        count++;
+      }
+      res.appendChild(fragment);
+      if (i < docs.length) requestAnimationFrame(pump);
+    }
+    requestAnimationFrame(pump);
+  }
+
+  async function fetchBooks({ append=false }={}){
+    const title = q.value.trim();
+    if (!title) { setStatus('Type a title to search','#555'); return; }
+
+    // If this is a new search (not appending), reset state
+    if (!append || title !== lastTitle) {
+      currentPage = 1;
+      lastBatchCount = 0;
+      lastTitle = title;
+    }
+
+    if (controller) controller.abort();
+    controller = new AbortController();
+
+    if (!append) setStatus('Loading...','#555');
+    moreBtn.disabled = true;
+
+    const slowTimer = setTimeout(() => setStatus('Slow response...','#a66a00'), SLOW);
+    const timeoutTimer = setTimeout(() => controller.abort('timeout'), TIMEOUT);
+
+    try {
+      const params = new URLSearchParams({ title, limit: LIMIT.toString(), page: currentPage.toString(), fields: 'key,title,author_name,cover_i' });
+      const url = `${ENDPOINT}?${params.toString()}`;
+      const resp = await fetch(url, { signal: controller.signal });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      const docs = Array.isArray(data.docs) ? data.docs : [];
+
+      renderResults(docs, append);
+      lastBatchCount = docs.length;
+
+      // Update UI
+      setStatus(docs.length ? `Loaded ${append ? 'more ' : ''}${docs.length} result(s)` : (append ? 'No more results' : 'No results'), '#555');
+      // If exactly LIMIT were returned, there may be another page
+      if (docs.length === LIMIT) {
+        currentPage += 1;
+        moreBtn.style.display = 'inline-block';
+        moreBtn.disabled = false;
+      } else {
+        moreBtn.style.display = 'none';
+      }
+    } catch (err){
+      console.error('Search failed:', err);
+      setStatus('Failed to load results. Please try again.','#b00020');
+      moreBtn.disabled = false;
+    } finally {
+      clearTimeout(slowTimer);
+      clearTimeout(timeoutTimer);
+    }
+  }
+
+  // Wire up events
+  go.addEventListener('click', () => fetchBooks({ append:false }));
+  q.addEventListener('keydown', (e) => { if (e.key === 'Enter') fetchBooks({ append:false }); });
+  moreBtn.addEventListener('click', () => fetchBooks({ append:true }));
+  clearBtn.addEventListener('click', () => { saveFavs([]); renderFavs(); });
+
+  // initial
+  renderFavs();
+})();
+</script>
+</body>
+</html>
