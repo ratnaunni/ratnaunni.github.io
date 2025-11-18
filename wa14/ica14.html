@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+	background: #91C8E4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+/* svg path decoration */
+.svg-path {
+  stroke: gray;
+  stroke-width: 4;
+  fill: none; 
+}
+
+/* overlay object on svg path */
+.motion-container {
+  position: relative;
+  width: 548px;
+  height: 377px
+}
+.svg-path {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* path for animating object  */
+.motion-object {
+  offset-path: path('M3.42773 130.267C6.42773 144.767 95.4138 241.001 114.428 73.9471C129.928 -62.2339 101.291 2.349 78.4277 238.947C56.2844 468.095 26.0644 351.573 83.4277 270.267C94.9609 253.92 154.428 184.767 140.428 231.267C121.309 294.767 120.428 343.447 148.428 347.947C164.838 350.584 186.085 337.161 204.928 320.267C219.428 307.266 221.903 292.481 217.428 275.267C210.928 250.267 173.428 247.156 164.428 290.656C155.842 332.156 177.928 381.767 217.428 354.767C265.328 322.025 442.455 21.0524 385.928 66.4471C346.928 97.7666 208.928 344.447 280.928 347.947C352.928 351.447 452.928 161.767 439.928 156.947C425.252 151.506 289.428 316.447 370.428 343.447C451.428 370.447 461.129 255.156 452.928 255.156C444.727 255.156 403.428 358.627 466.928 347.947C530.428 337.267 466.928 195.905 466.928 242.365C466.928 290.656 544.428 264.767 544.428 247.267');
+  animation: move 20s linear infinite 1s;
+}
+
+@keyframes move {
+  0% { 
+    offset-distance: 0%;
+  }
+  80% { 
+    offset-distance: 100%;
+  }
+  100% { 
+    offset-distance: 100%;
+  }
+}
+
+.svg-path {
+    stroke-dasharray: 2980px;
+    stroke-dashoffset: 2980px;
+    animation: trailAnimation 20s linear infinite 1s;  
+}
+
+ @keyframes trailAnimation {
+  0% { 
+    stroke-dashoffset: 2980px;
+  }
+  80% { 
+    stroke-dashoffset: 0px;
+		opacity: 1;
+  }
+  90% { 
+    stroke-dashoffset: 0px;
+		opacity: 0;
+  }
+  100% { 
+    stroke-dashoffset: 0px;
+		opacity: 0;
+  }
+}
+
+.motion-object {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+}
+
+.cloud1 {
+	position: absolute;
+  top: 38px;
+   left: -141px;
+}
+
+.cloud2 {
+	position: absolute;
+  right: -199px;
+  top: 176px;
+} 
+</style>
+<body>
+    <div class="motion-container">
+
+	<!-- path -->
+	<svg class="svg-path" viewBox="0 0 548 377" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M3.42773 130.267C6.42773 144.767 95.4138 241.001 114.428 73.9471C129.928 -62.2339 101.291 2.349 78.4277 238.947C56.2844 468.095 26.0644 351.573 83.4277 270.267C94.9609 253.92 154.428 184.767 140.428 231.267C121.309 294.767 120.428 343.447 148.428 347.947C164.838 350.584 186.085 337.161 204.928 320.267C219.428 307.266 221.903 292.481 217.428 275.267C210.928 250.267 173.428 247.156 164.428 290.656C155.842 332.156 177.928 381.767 217.428 354.767C265.328 322.025 442.455 21.0524 385.928 66.4471C346.928 97.7666 208.928 344.447 280.928 347.947C352.928 351.447 452.928 161.767 439.928 156.947C425.252 151.506 289.428 316.447 370.428 343.447C451.428 370.447 461.129 255.156 452.928 255.156C444.727 255.156 403.428 358.627 466.928 347.947C530.428 337.267 466.928 195.905 466.928 242.365C466.928 290.656 544.428 264.767 544.428 247.267" stroke="#4682A9" stroke-width="7" />
+	</svg>
+
+	<!-- object to move -->
+	<div class="motion-object">
+		<svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M108 688q1-38 40-80L7 519q-13-6-3-16l29-25q8-5 18-3l173 29 144-156L31 120q-13-8 0-17l48-39 440 123L649 49c43-38 86-55 118-47 18 4 24 10 30 27 11 32-6 77-46 122L613 281l123 440-39 48q-9 13-17 0L452 432 296 576l29 173q2 9-3 18l-26 29q-9 10-15-3l-89-141q-42 39-81 40-3 0-3-4" fill="#F6F4EB" />
+		</svg>
+	</div>
+
+	<svg class="cloud2" width="263" height="139" viewBox="0 0 263 139" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M95 0q39 1 59 18 18-6 41-7c38 0 68 16 68 37 0 20-30 36-68 36q9 8 9 19c0 20-30 36-68 36-33 0-60-12-67-29h-1C30 110 0 94 0 74q1-20 28-30l-1-7C27 16 57 0 95 0m41 66" fill="#F6F4EB" />
+	</svg>
+
+	<svg class="cloud1" width="235" height="168" viewBox="0 0 235 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M80 0q39 1 59 18 13-3 28-3c38 0 68 16 68 37q-1 16-23 27 8 7 8 16c0 21-30 37-68 37h-16c0 20-30 36-68 36S0 152 0 132c0-21 30-37 68-37h16q1-13 17-24l-21 2c-38 0-68-16-68-36C12 16 42 0 80 0" fill="#F6F4EB" />
+	</svg>
+
+</div>
+</body>
+</html>

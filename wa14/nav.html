@@ -1,0 +1,122 @@
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Text Strock stylish on hover</title>
+
+  <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0;
+  padding: 15px;
+  height: 100vh;
+  width: 100%;
+  background: white;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins";
+}
+
+h2,
+h3 {
+  font-size: 2em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px #454545;
+  letter-spacing: 2px;
+  position: relative;
+  font-weight: 999;
+}
+
+h2::before,
+h3::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  color: black;
+  overflow: hidden;
+  -webkit-text-stroke: 0;
+ 
+  transition: 0.5s ease-in-out ;
+  animation: animate 3s ease-in-out infinte ;
+}
+
+h3::before {
+  animation: none;
+}
+h3:hover::before {
+  width: 100%;
+  filter: drop-shadow(0 0 20px blue);
+  border-radius: 15px;
+}
+
+@keyframes animate {
+  0% {
+    width: 0%;
+    border-radius: 0px;
+  }
+  70% {
+    width: 10%;
+  }
+  20% {
+    width: 20%;
+  }
+  30% {
+    width: 30%;
+  }
+  40% {
+    width: 40%;
+  }
+  50% {
+    width: 50%;
+  }
+  60% {
+    width: 60%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    width: 80%;
+  }
+
+  90% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+    border-radius: 15px;
+  }
+  0%,
+  100% {
+    width: 0%;
+    filter: drop-shadow(0 0 10px pink); border-radius: 15px;
+    border-radius: 15px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+<p> Hover can be used in the navbar:</p>
+  <br>
+  <h3 data-text="Home!">Home!</h3>
+<h3 data-text="About!">About!</h3>
+<h3 data-text="Page!">Page!</h3>
+<h3 data-text="Contact!">Contact!</h3>
+  <script src="main.js"></script>
+</body>
+
+</html>
