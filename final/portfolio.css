@@ -1,4 +1,5 @@
-/*https://codepen.io/adiadila123/pen/GgZZXYm*/
+/*https://codepen.io/adiadila123/pen/GgZZXYm
+https://codepen.io/joesayegh/pen/jOEVPKO*/
 
 *,
 *::before,
@@ -34,6 +35,65 @@ body {
   justify-content: space-between;
   gap: 24px;
 }
+
+
+
+.grid-container {
+	background-color: deepskyblue;
+	display: grid;
+	grid-template-columns: 300px 300px 300px auto; 
+	grid-template-rows: 100px; 
+	min-height: 100vh;
+  gap: 20px;
+}
+
+.box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 28px;
+	padding: 2rem;
+	width: 100%;	
+	text-align: center;
+  border-radius: 15px;
+}
+
+.box-1 { background-color: #1abc9c; grid-column-start: 1; grid-column-end: 5; }
+.box-2 { background-color: #3498db; grid-column-start: 1; grid-column-end: 3; }
+.box-3 { background-color: #9b59b6; grid-column-start: 3; grid-column-end: 5; }
+
+.box-4 { background-color: #34495e; grid-column-start: 2; grid-column-end: 4; }
+.box-5 { background-color: #f1c40f; grid-row-start: 3; grid-row-end: 4; }
+.box-6 { background-color: #e67e22; grid-row-start: 1; grid-column-start: 4; grid-row-end: 3; grid-row-end: 3;}
+.box-7 { background-color: #e74c3c; grid-column: 1 / 4; grid-row-start: 4; grid-row-end: 5; }
+.box-8 { background-color: #bdc3c7; }
+.box-9 { background-color: #2ecc71; }
+.box-10 { background-color: #16a085; }
+.box-11 { background-color: #EB974E; }
+.box-12 { background-color: #87D37C; grid-column-start: 1; grid-column-end: 5;}
+
+
+
+
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer {
+  background: #212121;
+  position: sticky;
+  bottom: 0;
+  height: 100px;
+  color: #eee;
+}
+
+.content {
+  font-size: 32px;
+  font-weight: 600;
+}
+
 
 /* ---------- Brand Logo ---------- */
 .brand {
@@ -87,7 +147,7 @@ body {
 
 .nav-item a {
   text-decoration: none;
-  font-size: 15px;
+  font-size: 17px;
   color: #3d405b;
   padding: 6px 0;
   display: inline-block;

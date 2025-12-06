@@ -1,254 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Working Nav Demo</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <style>
-/* ---------- GLOBAL RESET ---------- */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
+  /* 1. Basic Reset/Styling */
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
 }
 
-/* ---------- HEADER + LAYOUT ---------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 900;
-  backdrop-filter: blur(16px);
-  background: linear-gradient(
-    to bottom,
-    rgba(247, 247, 251, 0.92),
-    rgba(247, 247, 251, 0.85)
-  );
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+/* 2. The Grid Container */
+.portfolio-grid {
+    /* Enables the grid layout */
+    display: grid;
+    /* Sets up minimum column width and allows them to repeat and fill the available space */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    /* Adds a gap between grid items (both rows and columns) */
+    gap: 20px; 
+    /* Centers the grid and adds padding */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-.container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+/* 3. Styling the Grid Items (Portfolio Cards) */
+.portfolio-item {
+    /* Basic styling for the card */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensures the image doesn't break the border radius */
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
 }
 
-/* ---------- BRAND ---------- */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
+/* Hover effect */
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.brand-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  background: conic-gradient(from 180deg, #3d405b, #e07a5f, #f2cc8f, #81b29a, #3d405b);
-  color: #ffffff;
-}
-
-.brand-text {
-  font-weight: 600;
-  font-size: 18px;
-  color: #3d405b;
-}
-
-/* ---------- NAV (DESKTOP) ---------- */
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  position: relative;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 22px;
-  margin: 0;
-  padding: 0;
-}
-.nav-item {
-  position: relative;
-}
-
-.nav-item a {
-  text-decoration: none;
-  font-size: 15px;
-  color: #3d405b;
-  padding: 6px 0;
-  display: inline-block;
-  position: relative;
-}
-
-.nav-item a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #3d405b, #e07a5f);
-  transition: width 0.22s ease;
-}
-
-.nav-item:hover a::after,
-.nav-item.active a::after {
-  width: 100%;
-}
-
-/* ---------- HAMBURGER (MOBILE ONLY) ---------- */
-#burger-menu {
-  cursor: pointer;
-  height: 32px;
-  width: 32px;
-  position: relative;
-  display: none;
-  color: #e07a5f;
-  z-index: 9999;
-}
-
-#burger-menu span,
-#burger-menu span::before,
-#burger-menu span::after {
-  background: currentColor;
-  display: block;
-  height: 2px;
-  width: 28px;
-  position: absolute;
-  transition: 0.3s ease-in-out;
-}
-
-#burger-menu span {
-  top: 50%;
-  left: 2px;
-  transform: translateY(-50%);
-}
-
-#burger-menu span::before,
-#burger-menu span::after {
-  content: "";
-  left: 0;
-}
-
-#burger-menu span::before { top: -8px; }
-#burger-menu span::after { top: 8px; }
-
-/* X animation */
-#burger-menu.close span {
-  transform: translateY(-50%) rotate(-45deg);
-}
-
-#burger-menu.close span::before {
-  top: 0;
-  transform: rotate(90deg);
-}
-
-#burger-menu.close span::after {
-  opacity: 0;
-  width: 0;
-}
-
-/* ---------- MOBILE MENU ---------- */
-@media (max-width: 768px) {
-  #burger-menu {
+/* Styling the image */
+.portfolio-item img {
+    width: 100%; /* Makes image fill the card width */
+    height: 200px; /* Fixed height for visual consistency */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
     display: block;
-  }
+}
 
-  .nav-links {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 100%; /* Completely off-screen */
-    flex-direction: column;
-    padding: 80px 24px 24px;
-    gap: 18px;
-    background: rgba(15, 23, 42, 0.98);
-    border-left: 1px solid rgba(148, 163, 184, 0.25);
-    transition: left 0.26s ease;
-    z-index: 8000;
-  }
+/* Styling the text content */
+.item-content {
+    padding: 15px;
+}
 
-  .main-nav.is-open .nav-links {
-    left: 30%; /* slide in */
-  }
+.item-content h3 {
+    margin-top: 0;
+    color: #333;
+}
 
-  .nav-item a {
-    color: #f2cc8f;
-    font-size: 18px;
-  }
-
-  .nav-item a:hover {
-    color: #e07a5f;
-  }
-
-  .nav-item a::after {
-    background: #e07a5f;
-  }
+.item-content p {
+    color: #666;
 }
 </style>
-</head>
 <body>
+  <div class="portfolio-grid">
+    
+    <div class="portfolio-item">
+        <img src="project1.jpg" alt="Description of Project 1">
+        <div class="item-content">
+            <h3>Project Title One</h3>
+            <p>UI/UX Design</p>
+        </div>
+    </div>
 
-<header class="site-header">
-  <div class="container">
-    <a href="#" class="brand">
-      <span class="brand-mark">R</span>
-      <span class="brand-text"></span>
-    </a>
-
-    <nav class="main-nav">
-      <div id="burger-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-      </div>
-
-      <ul class="nav-links">
-        <li class="nav-item"><a href="./Home.html">Home</a></li>
-        <li class="nav-item"><a href="./About.html">About</a></li>
-        <li class="nav-item"><a href="./MyWork.html">My Work</a></li>
-        <li class="nav-item"><a href="./Contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<script>
-// 1. SELECT ELEMENTS
-const navToggle = document.getElementById("burger-menu");
-const mainNav = document.querySelector(".main-nav");
-
-// 2. TOGGLE MENU OPEN/CLOSED
-navToggle.addEventListener("click", () => {
-  const isOpen = mainNav.classList.toggle("is-open");
-  navToggle.classList.toggle("close");
-  navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-});
-
-// 3. CLOSE MENU ON LINK CLICK
-document.querySelectorAll(".nav-links a").forEach((link) => {
-  link.addEventListener("click", () => {
-    mainNav.classList.remove("is-open");
-    navToggle.classList.remove("close");
-    navToggle.setAttribute("aria-expanded", "false");
-  });
-});
-</script>
-
+    <div class="portfolio-item">
+        <img src="project2.jpg" alt="Description of Project 2">
+        <div class="item-content">
+            <h3>Website Development</h3>
+            <p>Front-End Coding</p>
+        </div>
+    </div>
+    
+    <div class="portfolio-item">
+        <img src="project3.jpg" alt="Description of Project 3">
+        <div class="item-content">
+            <h3>Branding & Logo</h3>
+            <p>Graphic Design</p>
+        </div>
+    </div>
+    
+    </div>
 </body>
 </html>
