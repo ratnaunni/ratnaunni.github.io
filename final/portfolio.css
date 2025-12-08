@@ -9,7 +9,7 @@ https://codepen.io/joesayegh/pen/jOEVPKO*/
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top left, #f4f1de 0, var(--bg) 45%, var(--bg) 100%);
+  background-image: linear-gradient(to bottom, #3d405b , #e0e0e0);
   color: var(--text);
   line-height: 1.6;
   scroll-behavior: smooth;
@@ -39,7 +39,7 @@ body {
 
 
 .grid-container {
-	background-color: deepskyblue;
+	background-color: transparent;
 	display: grid;
 	grid-template-columns: 300px 300px 300px auto; 
 	grid-template-rows: 100px; 
@@ -58,23 +58,12 @@ body {
   border-radius: 15px;
 }
 
-.box-1 { background-color: #1abc9c; grid-column-start: 1; grid-column-end: 5; }
-.box-2 { background-color: #3498db; grid-column-start: 1; grid-column-end: 3; }
-.box-3 { background-color: #9b59b6; grid-column-start: 3; grid-column-end: 5; }
-
-.box-4 { background-color: #34495e; grid-column-start: 2; grid-column-end: 4; }
-.box-5 { background-color: #f1c40f; grid-row-start: 3; grid-row-end: 4; }
-.box-6 { background-color: #e67e22; grid-row-start: 1; grid-column-start: 4; grid-row-end: 3; grid-row-end: 3;}
-.box-7 { background-color: #e74c3c; grid-column: 1 / 4; grid-row-start: 4; grid-row-end: 5; }
-.box-8 { background-color: #bdc3c7; }
-.box-9 { background-color: #2ecc71; }
-.box-10 { background-color: #16a085; }
-.box-11 { background-color: #EB974E; }
-.box-12 { background-color: #87D37C; grid-column-start: 1; grid-column-end: 5;}
-
-
-
-
+.box-1 { background-color: #f4f1de; grid-column-start: 1; grid-column-end: 5; }
+.box-2 { background-color: #f4f1de; grid-column-start: 1; grid-column-end: 3; }
+.box-3 { background-color: #f4f1de; grid-column-start: 3; grid-column-end: 5; }
+.box-4 { background-color: #f4f1de; grid-column-start: 1; grid-column-end: 4; grid-row-start: 1; grid-row-end: 3; }
+.box-5 { background-color: #f4f1de; grid-column-start: 4; grid-column-end: 4; grid-row-start: 1; grid-row-end: 3; }
+.box-6 { background-color: #f4f1de; grid-column-start: 4; grid-column-end: 4; grid-row-start: 3; }
 
 .footer {
   display: flex;
@@ -82,11 +71,11 @@ body {
   justify-content: center;
 }
 .footer {
-  background: #212121;
+  background: #f2cc8f;
   position: sticky;
   bottom: 0;
-  height: 100px;
-  color: #eee;
+  height: 75px;
+  color:#3498db;
 }
 
 .content {
@@ -95,7 +84,7 @@ body {
 }
 
 
-/* ---------- Brand Logo ---------- */
+/* ----------  Logo ---------- */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -112,20 +101,52 @@ body {
   justify-content: center;
   font-weight: 700;
   font-size: 18px;
-
   background: conic-gradient(from 180deg, #3d405b, #e07a5f, #f2cc8f, #81b29a, #3d405b);
-
-  color: #ffffff;
-}
-
-.brand-text {
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.04em;
   color: #e5e7eb;
 }
 
+.brand-text {
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  color: #3d405b;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ---------- Font ---------- */
+h1{
+    font-size: clamp(2.3rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+}
+h2{
+    font-weight: 200;
+    font-style: normal;
+    font-size: 36px;
+    color: #3d405bff;
+}
+h3{
+    font-weight: 200;
+    font-style: normal;
+    font-size: 24px;
+    color: #3d405bff;
+}   
+p{
+  
+    font-weight: 200;
+    font-style: normal;
+    font-size: 16px;
+    color: #3d405bff;
+}
+.highlight{
+      background: linear-gradient(120deg, #3d405b, #e07a5f);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
 /* ---------- Nav layout ---------- */
+
 .main-nav {
   display: flex;
   align-items: center;
@@ -141,6 +162,7 @@ body {
   margin: 0;
 }
 
+
 .nav-item {
   position: relative;
 }
@@ -154,8 +176,12 @@ body {
   transition: color 0.18s ease, opacity 0.18s ease;
   position: relative;
 }
-
-
+#active {
+  font-weight: bold;
+}
+#active a::after {
+  width: 100%;
+}
 .nav-item a::after {
   content: "";
   position: absolute;
@@ -173,7 +199,6 @@ body {
 .nav-item.active a::after {
   width: 100%;
 }
-
 
 /* ---------- Hamburger toggle ---------- */
 #burger-menu {
